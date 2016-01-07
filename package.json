@@ -1,0 +1,16 @@
+{
+  "name": "animalbot",
+  "version": "1.0.0",
+  "description": "Home of the ANIMAL bot.",
+  "homepage": "http://bot.animal.at",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ANIMAL",
+  "license": "MIT",
+  "dependencies": {
+    "sqlite3": "^3.1.1",
+    "sequelize": "^3.16.0"
+  }
+}

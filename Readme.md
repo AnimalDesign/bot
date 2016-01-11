@@ -1,24 +1,70 @@
 # ANIMAL bot
 
-This is the home of the ANIMAL bot. You should not use it just yet.
+This is the home of the ANIMAL bot. It shall be a (not so) silent companion, supporting our everyday work life.
+You should not use it just yet.
 
-## Dependencies
+## Core functionality (Draft)
+
+The core of the ANIMAL bot provides the following functionality:
+
+### Module Loader
+
+With the module loader, we try to maintain great flexibility. Also we allow our team members to
+teach our bot new tricks without blocking others. This is loosely inspired by [this article](https://strongloop.com/strongblog/modular-node-js-express/).
+
+Modules usually reside in `server/lib/modules/<modulename>`.
+They can have the following structure:
+
+```
+lib/modules
+  |- <modulename>
+	|- commands
+	|- config
+	|- models
+	|- tests
+	|- module.js
+	|- package.json
+```
+
+### Cron manager
+
+### Database manager
+
+### CLI
+
+
+## Extended functionality
+
+As already mentioned above, the module loader is able to extend the bots capabilities.
+
+### Discovery module
+
+The Discovery-module keeps track on the people currently present in our office. It does this
+by regularly scanning the network and matching hostnames/mac addresses.
+
+#### Dependencies
 
 - [arp-scan](http://linux.die.net/man/1/arp-scan)
 - avahi ([avahi-resolve-address](http://linux.die.net/man/1/avahi-resolve-address))
 
-## Setup
+#### Setup
 
 - Allow `arp-scan` to run as root (i.e. `sudo chmod u+s /usr/bin/arp-scan`)
 
+#### Links
+
+- https://github.com/walchko/nodescan
+
 ## Links
 
-### General
-
+- https://github.com/foreverjs/forever
+- https://strongloop.com/strongblog/modular-node-js-express/
 - https://simplapi.wordpress.com/2012/05/14/node-js-singleton-structure/
 - http://www.redotheweb.com/2013/02/20/sequelize-the-javascript-orm-in-practice.html
 - https://github.com/JeyDotC/articles/blob/master/EXPRESS%20WITH%20SEQUELIZE.md
+- https://github.com/kilianc/node-apiserver/tree/master/examples/instagram
 
-### Discovery module
 
-- https://github.com/walchko/nodescan
+## About
+
+„We build it“ — [ANIMAL](http://animal.at)

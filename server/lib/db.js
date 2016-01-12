@@ -1,27 +1,70 @@
-// http://www.redotheweb.com/2013/02/20/sequelize-the-javascript-orm-in-practice.html
-// https://github.com/JeyDotC/articles/blob/master/EXPRESS%20WITH%20SEQUELIZE.md
+// 'use strict';
 
 var filesystem = require('fs'),
 	Sequelize = require('sequelize'),
-	models = {},
-	relationships = {};
+	models = {};
 
-var singleton = function singleton() {
+var db = function db() {
 	var sequelize = null;
-	var modelsPath = '';
 
-	this.setup = function(path, database, username, password, obj) {
-		modelsPath = path;
-
-		if (arguments.length == 3) {
+	this.connect = function(database, username, password, obj) {
+		if (arguments.length == 2) {
 			sequelize = new Sequelize(database, username);
-		} else if (arguments.length == 4) {
+		} else if (arguments.length == 3) {
 			sequelize = new Sequelize(database, username, password);
-		} else if (arguments.length == 5) {
+		} else if (arguments.length == 4) {
 			sequelize = new Sequelize(database, username, password, obj);
 		}
 
-		init();
+		sequelize
+			.authenticate()
+			.then(function() {
+				console.info('> Connection has been established successfully.');
+			}, function(err) {
+				throw new Error(err);
+			});
+	}
+
+	this.loadModels = function(path) {
+		var pathModelCount = 0,
+			pathRelationships = {};
+
+		// Load models from path
+		filesystem.readdirSync('server/' + path).forEach(function(name) {
+			var modelName = name.replace(/\.js$/i, ''),
+				object = require('../' + path + '/' + modelName);
+
+			models[modelName] = sequelize.define(modelName, object.model, object.options || {});
+			pathModelCount++;
+
+			if ('relations' in object) {
+				pathRelationships[modelName] = object.relations;
+			}
+		});
+		
+		console.info('> Loaded models', models);
+
+		// Create relations
+		for (var name in pathRelationships) {
+			var relation = pathRelationships[name];
+			for (var relName in relation) {
+				var related = relation[relName];
+				models[name][relName](models[related]);
+				console.info('> Relation: ' + name + ' ' + relName + ' ' + related);
+			}
+		}
+
+		if(pathModelCount > 0) {
+			sequelize
+			.sync({
+				force: true
+			})
+			.then(function() {
+				console.info('> Database tables synced.');
+			}, function(err) {
+				throw new Error(err);
+			});
+		}
 	}
 
 	this.model = function(name) {
@@ -32,41 +75,17 @@ var singleton = function singleton() {
 		return sequelize;
 	}
 
-	function init() {
-		filesystem.readdirSync('server/' + modelsPath).forEach(function(name) {
-			var modelName = name.replace(/\.js$/i, ''),
-				object = require('../' + modelsPath + '/' + modelName);
-
-			models[modelName] = sequelize.define(modelName, object.model, object.options || {});
-
-			if ('relations' in object) {
-				relationships[modelName] = object.relations;
-			}
-		});
-
-		console.info('> Loaded models', models);
-
-		for (var name in relationships) {
-			var relation = relationships[name];
-			for (var relName in relation) {
-				var related = relation[relName];
-				console.info('> Relation: ' + name + ' ' + relName + ' ' + related);
-				models[name][relName](models[related]);
-			}
-		}
-	}
-
-	if (singleton.caller != singleton.getInstance) {
+	if (db.caller != db.getInstance) {
 		throw new Error('This object cannot be instanciated');
 	}
 }
 
-singleton.instance = null;
-singleton.getInstance = function() {
+db.instance = null;
+db.getInstance = function() {
 	if (this.instance === null) {
-		this.instance = new singleton();
+		this.instance = new db();
 	}
 	return this.instance;
 }
 
-module.exports = singleton.getInstance();
+module.exports = db.getInstance();

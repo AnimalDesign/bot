@@ -7,10 +7,15 @@ You should not use it just yet.
 
 The core of the ANIMAL bot provides the following functionality:
 
-### Module Loader
+### Database layer
+
+The database layer is based on the [Sequelize](http://docs.sequelizejs.com/en/latest/) ORM and therefor supports
+PostgreSQL, MySQL, MariaDB, SQLite and MSSQL databases.
+
+### Module loader
 
 With the module loader, we try to maintain great flexibility. Also we allow our team members to
-teach our bot new tricks without blocking others. This is loosely inspired by [this article](https://strongloop.com/strongblog/modular-node-js-express/).
+teach our bot new tricks without blocking others. The modular concept is loosely inspired by [this article](https://strongloop.com/strongblog/modular-node-js-express/).
 
 Modules usually reside in `server/lib/modules/<modulename>`.
 They can have the following structure:

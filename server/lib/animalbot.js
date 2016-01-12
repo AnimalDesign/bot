@@ -1,11 +1,13 @@
 'use strict';
 
-var util = require('util');
-var path = require('path');
-var fs = require('fs');
-var http = require('http');
-var EventEmitter = require('events').EventEmitter;
+var util = require('util'),
+	path = require('path'),
+	fs = require('fs'),
+	http = require('http'),
+	EventEmitter = require('events').EventEmitter;
+
 var db = require('./db');
+var moduleLoader = require('./moduleLoader');
 
 var AnimalBot = function Constructor(settings) {
 	this.settings = settings;
@@ -23,7 +25,7 @@ AnimalBot.prototype.run = function() {
 	AnimalBot.super_.call(this, this.settings);
 
 	this._connectDb();
-	this._discoverHosts();
+	this._registerModules();
 	this._startInterface();
 };
 
@@ -33,30 +35,27 @@ AnimalBot.prototype.run = function() {
  * @private
  */
 AnimalBot.prototype._connectDb = function() {
-	db.setup('models', '', '', '', {
+	db.connect('', '', '', {
 		'dialect': 'sqlite',
 		'storage': this.dbPath
 	});
 
-	var sequelize = db.seq();
-	sequelize
-		.authenticate()
-		.then(function() {
-			console.info('> Connection has been established successfully.');
-		}, function(err) {
-			throw new Error(err);
-		});
-
-	sequelize
-		.sync({
-			force: true
-		})
-		.then(function() {
-			console.info('> Database tables synced.');
-		}, function(err) {
-			throw new Error(err);
-		});
+//	db.loadModels('models');
 };
+
+/**
+ * Autoloads modules
+ * @private
+ */
+AnimalBot.prototype._registerModules = function() {
+	// Get modules
+	var modules = moduleLoader.loadModules();
+
+	for (var moduleName in modules) {
+		// Load database models for modules
+		db.loadModels('lib/modules/' + moduleName + '/models');
+	}
+}
 
 /**
  * Starting webserver
@@ -72,28 +71,6 @@ AnimalBot.prototype._startInterface = function() {
 	}).listen(8000);
 
 	console.log('> AnimalBot interface running on port 8000');
-};
-
-/**
- * Discover devices inside the network
- * @private
- */
-AnimalBot.prototype._discoverHosts = function() {
-	// https://github.com/walchko/nodescan
-
-	// sudo chmod u+s /usr/bin/arp-scan
-
-	var Discover = require('./discover');
-	var discover = new Discover();
-	discover.getDevices().then(function(devices) {
-		for (var key in devices) {
-			var device = devices[key];
-			console.log(device.ip);
-			discover.getHostname(device.ip).then(function(hostname) {
-				console.log(hostname);
-			});
-		}
-	});
 };
 
 module.exports = AnimalBot;

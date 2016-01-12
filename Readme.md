@@ -24,36 +24,8 @@ lib/modules
 	|- tests
 	|- module.js
 	|- package.json
+    |- readme.md
 ```
-
-### Cron manager
-
-### Database manager
-
-### CLI
-
-
-## Extended functionality
-
-As already mentioned above, the module loader is able to extend the bots capabilities.
-
-### Discovery module
-
-The Discovery-module keeps track on the people currently present in our office. It does this
-by regularly scanning the network and matching hostnames/mac addresses.
-
-#### Dependencies
-
-- [arp-scan](http://linux.die.net/man/1/arp-scan)
-- avahi ([avahi-resolve-address](http://linux.die.net/man/1/avahi-resolve-address))
-
-#### Setup
-
-- Allow `arp-scan` to run as root (i.e. `sudo chmod u+s /usr/bin/arp-scan`)
-
-#### Links
-
-- https://github.com/walchko/nodescan
 
 ## Links
 

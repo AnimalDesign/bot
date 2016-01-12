@@ -10,7 +10,7 @@ The core of the ANIMAL bot provides the following functionality:
 ### Database layer
 
 The database layer is based on the [Sequelize](http://docs.sequelizejs.com/en/latest/) ORM and therefor supports
-PostgreSQL, MySQL, MariaDB, SQLite and MSSQL databases.
+PostgreSQL, MySQL, MariaDB, SQLite and MSSQL databases. It the current setup, SQLite is used.
 
 ### Module loader
 
@@ -31,6 +31,8 @@ lib/modules
 	|- package.json
     |- readme.md
 ```
+
+> __Note:__ A module can be deactivated simply by renaming its `module.js` file.
 
 ## Links
 

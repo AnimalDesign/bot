@@ -23,10 +23,9 @@ They can have the following structure:
 ```
 lib/modules
   |- <modulename>
-	|- commands
-	|- config
 	|- models
 	|- tests
+    |- config.json
 	|- module.js
 	|- package.json
     |- readme.md

@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var commander = require('commander'),
+	db = require('../server/lib/db'),
+	moduleLoader = require('../server/lib/moduleLoader'),
+	modules = moduleLoader.loadModules(),
+	commands = moduleLoader.getCommands();
+
+commander
+	.version(require('../package.json').version)
+	.usage();
+
+commands.forEach(function(command) {
+	if (typeof(command.callback) !== 'function') {
+		command.callback = modules[command.moduleName][command.callback];
+	}
+
+	commander.command(command.name, command.description)
+	command.options.forEach(function(option) {
+		if (typeof(option) !== 'array') {
+			option = [option, ''];
+		}
+
+		commander.option(option[0], option[1]);
+	});
+
+	commander.action(command.callback);
+});
+
+commander
+	.parse(process.argv);

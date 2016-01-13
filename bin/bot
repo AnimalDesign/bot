@@ -2,31 +2,35 @@
 
 'use strict';
 
-var commander = require('commander'),
+var util = require('util'),
+	commander = require('commander'),
 	db = require('../server/lib/db'),
 	moduleLoader = require('../server/lib/moduleLoader'),
 	modules = moduleLoader.loadModules(),
 	commands = moduleLoader.getCommands();
 
 commander
-	.version(require('../package.json').version)
-	.usage();
+	.version(require('../package.json').version);
 
 commands.forEach(function(command) {
-	if (typeof(command.callback) !== 'function') {
+	if (!util.isFunction(command.callback)) {
 		command.callback = modules[command.moduleName][command.callback];
 	}
 
-	commander.command(command.name, command.description)
+	// Setting up sub-command, arguments and options
+	var currentCommand = commander
+		.command(command.name)
+		.description(command.description)
+		.arguments(command.arguments.join(' '))
+		.action(command.callback);
+
 	command.options.forEach(function(option) {
-		if (typeof(option) !== 'array') {
+		if (!util.isArray(option)) {
 			option = [option, ''];
 		}
-
-		commander.option(option[0], option[1]);
+	
+		currentCommand.option(option[0], option[1]);
 	});
-
-	commander.action(command.callback);
 });
 
 commander

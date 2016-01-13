@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 
 var filesystem = require('fs'),
 	Sequelize = require('sequelize'),
@@ -74,18 +74,6 @@ var db = function db() {
 	this.seq = function() {
 		return sequelize;
 	}
-
-	if (db.caller != db.getInstance) {
-		throw new Error('This object cannot be instanciated');
-	}
 }
 
-db.instance = null;
-db.getInstance = function() {
-	if (this.instance === null) {
-		this.instance = new db();
-	}
-	return this.instance;
-}
-
-module.exports = db.getInstance();
+module.exports = exports = new db();

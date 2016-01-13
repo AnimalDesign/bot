@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 
 var filesystem = require('fs'),
 	modules = {},
@@ -10,7 +10,7 @@ var filesystem = require('fs'),
 var moduleLoader = function moduleLoader() {
 
 	this.loadModules = function() {
-		var path = 'server/lib/modules/'
+		var path = 'server/lib/modules/',
 			self = this;
 
 		filesystem.readdirSync(path).forEach(function(moduleName) {
@@ -19,12 +19,7 @@ var moduleLoader = function moduleLoader() {
 			}
 
 			modules[moduleName] = require('./modules/' + moduleName + '/module');
-			
-			self._registerActions(moduleName, []);
-			self._registerTasks(moduleName, []);
-			self._registerEvents(moduleName, []);
-			self._registerCommands(moduleName, []);
-
+			modules[moduleName].init();
 		});
 
 		console.log('> Loaded modules', modules);
@@ -32,48 +27,33 @@ var moduleLoader = function moduleLoader() {
 	}
 
 	/**
-	 * Registers actions
-	 * @private
+	 * Registers an action
 	 */
-	this._registerActions = function(moduleName, actions) {
+	this.registerAction = function(moduleName, action) {
 
 	};
 
 	/**
-	 * Registers recurring tasks
-	 * @private
+	 * Registers a recurring task
 	 */
-	this._registerTasks = function(moduleName, tasks) {
-
-	};
-	
-	/**
-	 * Registers events
-	 * @private
-	 */
-	this._registerEvents = function(moduleName, events) {
+	this.registerTask = function(moduleName, task) {
 
 	};
 
 	/**
-	 * Registers commands
-	 * @private
+	 * Registers event
 	 */
-	this._registerCommands = function(commands) {
+	this.registerEvent = function(moduleName, event) {
 
 	};
 
-	if (moduleLoader.caller != moduleLoader.getInstance) {
-		throw new Error('This object cannot be instanciated');
-	}
+	/**
+	 * Registers command
+	 * @private
+	 */
+	this.registerCommand = function(moduleName, command) {
+
+	};
 }
 
-moduleLoader.instance = null;
-moduleLoader.getInstance = function() {
-	if (this.instance === null) {
-		this.instance = new moduleLoader();
-	}
-	return this.instance;
-}
-
-module.exports = moduleLoader.getInstance();
+module.exports = exports = new moduleLoader();

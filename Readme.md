@@ -1,7 +1,8 @@
 # ANIMAL bot
 
 This is the home of the ANIMAL bot. It shall be a (not so) silent companion, supporting our everyday work life.
-You should not use it just yet.
+
+> __Note:__ You should not use it just yet.
 
 ## Core functionality (Draft)
 
@@ -23,9 +24,9 @@ They can have the following structure:
 ```
 lib/modules
   |- <modulename>
-	|- models
-	|- tests
-    |- config.json
+	|- models (optional)
+	|- tests (optional)
+    |- config.json (optional)
 	|- module.js
 	|- package.json
     |- readme.md
@@ -33,14 +34,21 @@ lib/modules
 
 > __Note:__ A module can be deactivated simply by renaming its `module.js` file.
 
+
+### Known modules
+
+- Discover
+
+## Dependencies
+
+- [Sequelize](http://docs.sequelizejs.com/en/latest/)
+- [Node Schedule](https://github.com/node-schedule/node-schedule)
+- [Commander.js](https://github.com/tj/commander.js)
+
 ## Links
 
 - https://github.com/foreverjs/forever
-- https://strongloop.com/strongblog/modular-node-js-express/
-- https://simplapi.wordpress.com/2012/05/14/node-js-singleton-structure/
 - http://www.redotheweb.com/2013/02/20/sequelize-the-javascript-orm-in-practice.html
-- https://github.com/JeyDotC/articles/blob/master/EXPRESS%20WITH%20SEQUELIZE.md
-- https://github.com/kilianc/node-apiserver/tree/master/examples/instagram
 
 
 ## About

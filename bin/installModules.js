@@ -13,7 +13,7 @@ filesystem.readdirSync(lib)
 			return;
 		}
 
-		// Install dependencies for  module
+		// Install dependencies for module
 		cp.spawn('npm', ['i'], {
 			env: process.env,
 			cwd: path,

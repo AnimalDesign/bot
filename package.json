@@ -5,12 +5,13 @@
   "homepage": "http://bot.animal.at",
   "main": "server/index.js",
   "scripts": {
-    "preinstall": "node server/bin/installModules",
+    "preinstall": "node bin/installModules",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ANIMAL",
   "license": "MIT",
   "dependencies": {
+    "commander": "^2.9.0",
     "node-schedule": "^0.6.0",
     "sequelize": "^3.16.0",
     "sqlite3": "^3.1.1"

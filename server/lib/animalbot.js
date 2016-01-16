@@ -40,7 +40,7 @@ AnimalBot.prototype._connectDb = function() {
 		'storage': this.dbPath
 	});
 
-//	db.loadModels('models');
+	// db.loadModels('models');
 };
 
 /**
@@ -48,13 +48,13 @@ AnimalBot.prototype._connectDb = function() {
  * @private
  */
 AnimalBot.prototype._registerModules = function() {
-	// Get modules
 	var modules = moduleLoader.loadModules();
-
 	for (var moduleName in modules) {
-		// Load database models for modules
 		db.loadModels('lib/modules/' + moduleName + '/models');
 	}
+	
+	db.createRelations();
+	db.syncDatabase();
 }
 
 /**

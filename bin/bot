@@ -17,21 +17,34 @@ commands.forEach(function(command) {
 		command.callback = modules[command.moduleName][command.callback];
 	}
 
-	// Setting up sub-command, arguments and options
 	var currentCommand = commander
 		.command(command.name)
-		.description(command.description)
-		.arguments(command.arguments.join(' '))
+		.description('(' + command.moduleName + ') ' + command.description)
+		.arguments((command.arguments || []).join(' '))
 		.action(command.callback);
 
-	command.options.forEach(function(option) {
+	(command.options || []).forEach(function(option) {
 		if (!util.isArray(option)) {
 			option = [option, ''];
 		}
-	
+
 		currentCommand.option(option[0], option[1]);
 	});
 });
 
-commander
-	.parse(process.argv);
+
+
+db.connect('', '', '', {
+	'dialect': 'sqlite',
+	'storage': 'server/data/animalbot.db'
+}).then(function() {
+	for (var moduleName in modules) {
+		db.loadModels('lib/modules/' + moduleName + '/models');
+	}
+	
+	db.createRelations();
+	db.syncDatabase();
+
+	commander
+		.parse(process.argv);
+});

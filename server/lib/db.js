@@ -2,7 +2,8 @@
 
 var filesystem = require('fs'),
 	Sequelize = require('sequelize'),
-	models = {};
+	models = {},
+	relationships = {};
 
 var db = function db() {
 	var sequelize = null;
@@ -16,7 +17,7 @@ var db = function db() {
 			sequelize = new Sequelize(database, username, password, obj);
 		}
 
-		sequelize
+		return sequelize
 			.authenticate()
 			.then(function() {
 				console.info('> Connection has been established successfully.');
@@ -26,48 +27,65 @@ var db = function db() {
 	}
 
 	this.loadModels = function(path) {
-		var pathModelCount = 0,
-			pathRelationships = {};
+		if (!filesystem.existsSync('server/' + path)) {
+			return;
+		}
 
-		// Load models from path
 		filesystem.readdirSync('server/' + path).forEach(function(name) {
 			var modelName = name.replace(/\.js$/i, ''),
 				object = require('../' + path + '/' + modelName);
 
 			models[modelName] = sequelize.define(modelName, object.model, object.options || {});
-			pathModelCount++;
 
 			if ('relations' in object) {
-				pathRelationships[modelName] = object.relations;
+				relationships[modelName] = object.relations;
 			}
 		});
-		
-		console.info('> Loaded models', models);
 
-		// Create relations
-		for (var name in pathRelationships) {
-			var relation = pathRelationships[name];
+		console.info('> Loaded models', models);
+	}
+
+	/**
+	 * Creates relations between database models
+	 *
+	 * @public
+	 */
+	this.createRelations = function() {
+		for (var name in relationships) {
+			var relation = relationships[name];
 			for (var relName in relation) {
 				var related = relation[relName];
 				models[name][relName](models[related]);
 				console.info('> Relation: ' + name + ' ' + relName + ' ' + related);
 			}
 		}
+	}
 
-		if(pathModelCount > 0) {
-			sequelize
-			.sync({
-				force: true
-			})
+	/**
+	 * Sync datbase schema
+	 *
+	 * @public
+	 */
+	this.syncDatabase = function(force) {
+		force = typeof force !== 'undefined' ? force : false;
+
+		sequelize
+			.sync(force)
 			.then(function() {
 				console.info('> Database tables synced.');
 			}, function(err) {
 				throw new Error(err);
 			});
-		}
 	}
 
-	this.model = function(name) {
+	/**
+	 * Returns database model
+	 *
+	 * @returns {object}
+	 *
+	 * @public
+	 */
+	this.getModel = function(name) {
 		return models[name];
 	}
 

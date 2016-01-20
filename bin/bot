@@ -2,12 +2,15 @@
 
 'use strict';
 
+global.isCommandline = true;
+
 var util = require('util'),
 	commander = require('commander'),
 	db = require('../server/lib/db'),
 	moduleLoader = require('../server/lib/moduleLoader'),
 	modules = moduleLoader.loadModules(),
 	commands = moduleLoader.getCommands();
+	
 
 commander
 	.version(require('../package.json').version);
@@ -31,8 +34,6 @@ commands.forEach(function(command) {
 		currentCommand.option(option[0], option[1]);
 	});
 });
-
-
 
 db.connect('', '', '', {
 	'dialect': 'sqlite',

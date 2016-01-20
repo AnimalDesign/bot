@@ -1,8 +1,7 @@
 'use strict';
 
 var path = require('path'),
-	filesystem = require('fs'),
-	http = require('http');
+	filesystem = require('fs');
 
 var db = require('./db');
 var moduleLoader = require('./moduleLoader');
@@ -32,7 +31,6 @@ class animalBot {
 	run() {
 		this._connectDb();
 		this._registerModules();
-		this._startInterface();
 	}
 
 	/**
@@ -56,21 +54,6 @@ class animalBot {
 			db.loadModels('lib/modules/' + moduleName + '/models');
 		}
 	}
-
-	/**
-	 * Start webserver
-	 */
-	_startInterface() {
-		http.createServer(function(req, res) {
-			res.writeHead(200, {
-				'Content-Type': 'text/plain'
-			});
-			res.write('Nothing yet.')
-			res.end();
-		}).listen(8000);
-
-		console.log('> AnimalBot interface running on port 8000');
-	};
 }
 
 module.exports = animalBot;

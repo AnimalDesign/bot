@@ -1,8 +1,6 @@
 'use strict';
 
-var AnimalBot = require('./lib/animalbot');
-var animalbot = new AnimalBot({
-
-});
+var AnimalBot = require('./lib/animalBot');
+var animalbot = new AnimalBot();
 
 animalbot.run();

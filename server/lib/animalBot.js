@@ -41,7 +41,7 @@ class animalBot {
 	_connectDb() {
 		db.connect('', '', '', {
 			'dialect': 'sqlite',
-			'storage': this.dbPath
+			'storage': path.resolve(process.cwd(), this.settings.dbPath)
 		});
 
 		// db.loadModels('models');

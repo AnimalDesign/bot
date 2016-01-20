@@ -14,9 +14,9 @@ class baseModule {
 
 		try {
 			this.config = JSON.parse(
-				filesystem.readFileSync(path.resolve(process.cwd(), 'server/modules', this.moduleName, 'config.json'))
+				filesystem.readFileSync(path.resolve(process.cwd(), 'server/lib/modules', this.moduleName, 'config.json'))
 			);
-		} catch (e) {
+		} catch (err) {
 			console.log('Error loading config.json', {
 				moduleName: this.moduleName
 			});

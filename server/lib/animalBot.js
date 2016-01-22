@@ -31,6 +31,10 @@ class animalBot {
 	run() {
 		this._connectDb();
 		this._registerModules();
+
+		(function wait() {
+			setTimeout(wait, 1000);
+		})();
 	}
 
 	/**

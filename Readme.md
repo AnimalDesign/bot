@@ -15,11 +15,9 @@ PostgreSQL, MySQL, MariaDB, SQLite and MSSQL databases. It the current setup, SQ
 
 ### Module loader
 
-With the module loader, we try to maintain great flexibility. Also we allow our team members to
-teach our bot new tricks without blocking others. The modular concept is loosely inspired by [this article](https://strongloop.com/strongblog/modular-node-js-express/).
+With the module loader, we try to maintain greatest possible flexibility. Developers can independently teach the bot new tricks without blocking others. Modules by the [ANIMAL team](http://animal.at) can be found [here](https://github.com/AnimalBot). To install a module, it usually needs to be copied (or cloned) into  `server/lib/modules/<modulename>`.
 
-Modules usually reside in `server/lib/modules/<modulename>`.
-They can have the following structure:
+They should have the following structure:
 
 ```
 lib/modules
@@ -34,22 +32,13 @@ lib/modules
 
 > __Note:__ A module can be deactivated simply by renaming its `module.js` file.
 
-
-### Known modules
-
-- Discover
+The modular concept of the module loader is loosely inspired by [this article](https://strongloop.com/strongblog/modular-node-js-express/).
 
 ## Dependencies
 
 - [Sequelize](http://docs.sequelizejs.com/en/latest/)
 - [Node Schedule](https://github.com/node-schedule/node-schedule)
 - [Commander.js](https://github.com/tj/commander.js)
-
-## Links
-
-- https://github.com/foreverjs/forever
-- http://www.redotheweb.com/2013/02/20/sequelize-the-javascript-orm-in-practice.html
-
 
 ## About
 

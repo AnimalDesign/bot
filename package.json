@@ -5,7 +5,7 @@
   "homepage": "http://bot.animal.at",
   "main": "server/index.js",
   "scripts": {
-    "preinstall": "node bin/installModules",
+    "preinstall": "node bin/installModuleDependencies",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ANIMAL",

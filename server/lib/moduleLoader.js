@@ -66,7 +66,7 @@ class moduleLoader {
 	}
 
 	/**
-	 * Returns callbacks of matching actions
+	 * Returns array of callbacks of matching actions
 	 * @param {string} exp
 	 * @returns {array}
 	 */

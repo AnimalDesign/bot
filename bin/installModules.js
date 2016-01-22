@@ -13,10 +13,17 @@ filesystem.readdirSync(lib)
 			return;
 		}
 
+		// Create a symlink to the main node_modules folder
+		// Workaround, as npm does not allow to specify a custom install folder
+		filesystem.symlinkSync(join(process.cwd(), 'node_modules'), join(path, 'node_modules'));
+
 		// Install dependencies for module
-		cp.spawn('npm', ['i'], {
+		cp.spawnSync('npm', ['i'], {
 			env: process.env,
 			cwd: path,
 			stdio: 'inherit'
 		});
+
+		// Remove symlink
+		filesystem.unlinkSync(join(path, 'node_modules'));
 	});

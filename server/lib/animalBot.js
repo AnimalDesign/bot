@@ -1,6 +1,6 @@
 'use strict';
 
-var path = require('path'),
+var join = require('path').join,
 	filesystem = require('fs');
 
 var db = require('./db');
@@ -16,7 +16,7 @@ class animalBot {
 
 		try {
 			defaults = JSON.parse(
-				filesystem.readFileSync(path.resolve(process.cwd(), 'server', 'config.json'))
+				filesystem.readFileSync(join(process.cwd(), 'server', 'config.json'))
 			);
 		} catch (err) {
 			console.log('Error loading config.json', err);
@@ -39,7 +39,7 @@ class animalBot {
 	_connectDb() {
 		db.connect('', '', '', {
 			'dialect': 'sqlite',
-			'storage': path.resolve(process.cwd(), this.settings.dbPath)
+			'storage': join(process.cwd(), this.settings.dbPath)
 		});
 
 		// db.loadModels('models');

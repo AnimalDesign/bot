@@ -9,7 +9,7 @@ filesystem.readdirSync(lib)
 		var path = join(lib, mod);
 
 		// Ensure path is a module and has a package.json
-		if (!filesystem.existsSync(join(path, 'package.json'))) {
+		if (!filesystem.existsSync(join(path, 'module.js')) || !filesystem.existsSync(join(path, 'package.json'))) {
 			return;
 		}
 

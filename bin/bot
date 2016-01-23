@@ -35,6 +35,11 @@ commands.forEach(function(command) {
 	});
 });
 
+process.stdout.write('\n' +
+	'  ╔═╗╔╗╔╦╔╦╗╔═╗╦    ┌┐ ┌─┐┌┬┐\n' +
+	'  ╠═╣║║║║║║║╠═╣║    ├┴┐│ │ │ \n' +
+	'  ╩ ╩╝╚╝╩╩ ╩╩ ╩╩═╝  └─┘└─┘ ┴ \n')
+
 db.connect({
 	'dialect': 'sqlite',
 	'storage': 'server/data/animalbot.db'
@@ -48,4 +53,8 @@ db.connect({
 
 	commander
 		.parse(process.argv);
+
+	if (!process.argv.slice(2).length) {
+		commander.help();
+	}
 });

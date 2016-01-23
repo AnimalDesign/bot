@@ -3,7 +3,7 @@ var filesystem = require('fs'),
 	join = require('path').join,
 	cp = require('child_process');
 
-var lib = resolve(__dirname, '../server/lib/modules/')
+var lib = resolve(__dirname, '../server/modules/')
 filesystem.readdirSync(lib)
 	.forEach(function(mod) {
 		var path = join(lib, mod);

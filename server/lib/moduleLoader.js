@@ -20,7 +20,7 @@ class moduleLoader {
 	 * @returns {object}
 	 */
 	loadModules() {
-		var path = 'server/lib/modules/',
+		var path = 'server/modules/',
 			self = this;
 
 		filesystem.readdirSync(path).forEach(function(moduleName) {
@@ -28,7 +28,7 @@ class moduleLoader {
 				return;
 			}
 
-			var moduleClass = require('./modules/' + moduleName + '/module');
+			var moduleClass = require('../modules/' + moduleName + '/module');
 			modules[moduleName] = new moduleClass();
 			modules[moduleName].init();
 		});

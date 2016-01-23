@@ -15,12 +15,12 @@ PostgreSQL, MySQL, MariaDB, SQLite and MSSQL databases. It the current setup, SQ
 
 ### Module loader
 
-With the module loader, we try to maintain greatest possible flexibility. Developers can independently teach the bot new tricks without blocking others. Modules by the [ANIMAL team](http://animal.at) can be found [here](https://github.com/AnimalBot). To install a module, it usually needs to be copied (or cloned) into  `server/lib/modules/<modulename>`.
+With the module loader, we try to maintain greatest possible flexibility. Developers can independently teach the bot new tricks without blocking others. Modules by the [ANIMAL team](http://animal.at) can be found [here](https://github.com/AnimalBot). To install a module, it usually needs to be copied (or cloned) into  `server/modules/<modulename>`.
 
 They should have the following structure:
 
 ```
-lib/modules
+server/modules
   |- <modulename>
 	|- models (optional)
 	|- tests (optional)

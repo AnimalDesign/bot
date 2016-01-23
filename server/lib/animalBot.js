@@ -55,7 +55,7 @@ class animalBot {
 	_registerModules() {
 		var modules = moduleLoader.loadModules();
 		for (var moduleName in modules) {
-			db.loadModels('lib/modules/' + moduleName + '/models');
+			db.loadModels('modules/' + moduleName + '/models');
 		}
 	}
 }

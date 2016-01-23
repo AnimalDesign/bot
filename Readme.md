@@ -14,6 +14,15 @@ With the module loader, we try to maintain greatest possible flexibility. Develo
 
 The modular concept of the module loader is loosely inspired by [this article](https://strongloop.com/strongblog/modular-node-js-express/).
 
+### Commandline interface
+
+To make some functionality easy accessable, the bos also has a commandline interface. It is based on 
+[Commander.js](https://github.com/tj/commander.js) and can be extended by modules.
+
+```
+./bin/bot
+```
+
 ### Logger
 
 The logger component uses [winston](https://github.com/winstonjs/winston) to log infos into `server/logs/info.log` and 

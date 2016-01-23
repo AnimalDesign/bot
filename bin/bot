@@ -10,7 +10,7 @@ var util = require('util'),
 	moduleLoader = require('../server/lib/moduleLoader'),
 	modules = moduleLoader.loadModules(),
 	commands = moduleLoader.getCommands();
-	
+
 
 commander
 	.version(require('../package.json').version);
@@ -35,14 +35,14 @@ commands.forEach(function(command) {
 	});
 });
 
-db.connect('', '', '', {
+db.connect({
 	'dialect': 'sqlite',
 	'storage': 'server/data/animalbot.db'
 }).then(function() {
 	for (var moduleName in modules) {
 		db.loadModels('lib/modules/' + moduleName + '/models');
 	}
-	
+
 	db.createRelations();
 	db.syncDatabase();
 

@@ -45,7 +45,7 @@ db.connect({
 	'storage': 'server/data/animalbot.db'
 }).then(function() {
 	for (var moduleName in modules) {
-		db.loadModels('lib/modules/' + moduleName + '/models');
+		db.loadModels('modules/' + moduleName + '/models');
 	}
 
 	db.createRelations();

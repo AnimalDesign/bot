@@ -15,7 +15,12 @@ With the module loader, we try to maintain greatest possible flexibility. Develo
 The modular concept of the module loader is loosely inspired by [this article](https://strongloop.com/strongblog/modular-node-js-express/).
 
 ### Logger
+
+The logger component uses [winston](https://github.com/winstonjs/winston) to log infos into `server/logs/info.log` and 
+errors into `server/logs/error.log`.
+
 ## Dependencies
+- [winston](https://github.com/winstonjs/winston)
 - [Sequelize](http://docs.sequelizejs.com/en/latest/)
 - [Node Schedule](https://github.com/node-schedule/node-schedule)
 - [Commander.js](https://github.com/tj/commander.js)

@@ -2,31 +2,36 @@
 
 var filesystem = require('fs'),
 	Sequelize = require('sequelize'),
+	logger = require('./logger'),
+	sequelize = null,
 	models = {},
 	relationships = {};
 
-var db = function db() {
-	var sequelize = null;
-
-	this.connect = function(database, username, password, obj) {
-		if (arguments.length == 2) {
-			sequelize = new Sequelize(database, username);
-		} else if (arguments.length == 3) {
-			sequelize = new Sequelize(database, username, password);
-		} else if (arguments.length == 4) {
-			sequelize = new Sequelize(database, username, password, obj);
-		}
+/**
+ * Singleton database layer
+ * @class db
+ */
+class db {
+	connect(config) {
+		config.logging = logger.info;
+		
+		sequelize = new Sequelize(
+			config.database || '',
+			config.username || '',
+			config.password || '',
+			config
+		);
 
 		return sequelize
 			.authenticate()
 			.then(function() {
-				console.info('> Connection has been established successfully.');
+				logger.log('verbose', 'Connection has been established successfully.');
 			}, function(err) {
-				throw new Error(err);
+				logger.error(err);
 			});
 	}
 
-	this.loadModels = function(path) {
+	loadModels(path) {
 		if (!filesystem.existsSync('server/' + path)) {
 			return;
 		}
@@ -42,37 +47,33 @@ var db = function db() {
 			}
 		});
 
-		console.info('> Loaded models', models);
+		logger.log('verbose', 'Loaded models', models);
 	}
 
 	/**
 	 * Creates relations between database models
-	 *
-	 * @public
 	 */
-	this.createRelations = function() {
+	createRelations() {
 		for (var name in relationships) {
 			var relation = relationships[name];
 			for (var relName in relation) {
 				var related = relation[relName];
 				models[name][relName](models[related]);
-				console.info('> Relation: ' + name + ' ' + relName + ' ' + related);
+				logger.log('verbose', 'Relation: ' + name + ' ' + relName + ' ' + related);
 			}
 		}
 	}
 
 	/**
 	 * Sync datbase schema
-	 *
-	 * @public
 	 */
-	this.syncDatabase = function(force) {
+	syncDatabase(force) {
 		force = typeof force !== 'undefined' ? force : false;
 
 		sequelize
 			.sync(force)
 			.then(function() {
-				console.info('> Database tables synced.');
+				logger.info('Database tables synced.');
 			}, function(err) {
 				throw new Error(err);
 			});
@@ -80,16 +81,13 @@ var db = function db() {
 
 	/**
 	 * Returns database model
-	 *
 	 * @returns {object}
-	 *
-	 * @public
 	 */
-	this.getModel = function(name) {
+	getModel(name) {
 		return models[name];
 	}
 
-	this.seq = function() {
+	seq() {
 		return sequelize;
 	}
 }

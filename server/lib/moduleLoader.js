@@ -2,7 +2,7 @@
 
 var filesystem = require('fs'),
 	util = require('util'),
-	schedule = require('node-schedule')
+	schedule = require('node-schedule'),
 
 	modules = {},
 	actions = {},

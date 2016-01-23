@@ -1,10 +1,9 @@
 'use strict';
 
 var join = require('path').join,
-	filesystem = require('fs');
-
-var db = require('./db');
-var moduleLoader = require('./moduleLoader');
+	filesystem = require('fs'),
+	db = require('./db'),
+	moduleLoader = require('./moduleLoader');
 
 /**
  * Main class of the ANIMAL bot.

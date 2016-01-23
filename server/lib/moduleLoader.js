@@ -2,12 +2,11 @@
 
 var filesystem = require('fs'),
 	util = require('util'),
-	schedule = require('node-schedule'),
+	schedule = require('node-schedule')
 
 	modules = {},
 	actions = {},
 	tasks = {},
-	events = {},
 	commands = [];
 
 /**
@@ -109,22 +108,6 @@ class moduleLoader {
 	 */
 	getTasks() {
 		return tasks;
-	}
-
-	/**
-	 * Registers an event
-	 * @param {object} event
-	 */
-	registerEvent(event) {
-
-	};
-
-	/**
-	 * Returns all registered events
-	 * @returns {object}
-	 */
-	getEvents() {
-		return events;
 	}
 
 	/**

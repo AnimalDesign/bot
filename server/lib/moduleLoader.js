@@ -3,6 +3,7 @@
 var filesystem = require('fs'),
 	util = require('util'),
 	schedule = require('node-schedule'),
+	logger = require('./logger'),
 
 	modules = {},
 	actions = {},
@@ -32,7 +33,7 @@ class moduleLoader {
 			modules[moduleName].init();
 		});
 
-		console.log('> Loaded modules', modules);
+		logger.info('Loaded modules %j', modules);
 		return modules;
 	}
 

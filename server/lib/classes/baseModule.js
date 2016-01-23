@@ -9,9 +9,10 @@ var filesystem = require('fs'),
  */
 class baseModule {
 	constructor() {
+		this.logger = require('../logger');
 		this.moduleLoader = require('../moduleLoader');
 		this.db = require('../db');
-		
+
 		this.moduleName = this.constructor.name;
 		this.config = {};
 
@@ -19,11 +20,7 @@ class baseModule {
 			this.config = JSON.parse(
 				filesystem.readFileSync(path.resolve(process.cwd(), 'server/lib/modules', this.moduleName, 'config.json'))
 			);
-		} catch (err) {
-			console.log('Error loading config.json', {
-				moduleName: this.moduleName
-			});
-		}
+		} catch (err) {}
 	}
 
 	init() {}

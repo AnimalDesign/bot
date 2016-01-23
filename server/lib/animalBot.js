@@ -2,6 +2,7 @@
 
 var join = require('path').join,
 	filesystem = require('fs'),
+	logger = require('./logger'),
 	db = require('./db'),
 	moduleLoader = require('./moduleLoader');
 
@@ -40,7 +41,7 @@ class animalBot {
 	 * Open connection to the database
 	 */
 	_connectDb() {
-		db.connect('', '', '', {
+		db.connect({
 			'dialect': 'sqlite',
 			'storage': join(process.cwd(), this.settings.dbPath)
 		});

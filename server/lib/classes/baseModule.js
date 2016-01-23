@@ -9,6 +9,9 @@ var filesystem = require('fs'),
  */
 class baseModule {
 	constructor() {
+		this.moduleLoader = require('../moduleLoader');
+		this.db = require('../db');
+		
 		this.moduleName = this.constructor.name;
 		this.config = {};
 

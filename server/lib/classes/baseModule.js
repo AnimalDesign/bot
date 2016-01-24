@@ -1,7 +1,10 @@
 'use strict';
 
 var filesystem = require('fs'),
-	path = require('path');
+	path = require('path'),
+	logger = require('../logger'),
+	db = require('../db'),
+	moduleLoader = require('../moduleLoader');
 
 /**
  * Base class for modules
@@ -9,9 +12,9 @@ var filesystem = require('fs'),
  */
 class baseModule {
 	constructor() {
-		this.logger = require('../logger');
-		this.moduleLoader = require('../moduleLoader');
-		this.db = require('../db');
+		this.logger = logger;
+		this.db = db;
+		this.moduleLoader = moduleLoader;
 
 		this.moduleName = this.constructor.name;
 		this.config = {};

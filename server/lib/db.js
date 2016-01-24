@@ -14,7 +14,7 @@ var filesystem = require('fs'),
 class db {
 	connect(config) {
 		config.logging = logger.info;
-		
+
 		sequelize = new Sequelize(
 			config.database || '',
 			config.username || '',
@@ -55,11 +55,13 @@ class db {
 	 */
 	createRelations() {
 		for (var name in relationships) {
-			var relation = relationships[name];
-			for (var relName in relation) {
-				var related = relation[relName];
-				models[name][relName](models[related]);
-				logger.log('verbose', 'Relation: ' + name + ' ' + relName + ' ' + related);
+			if ({}.hasOwnProperty.call(relationships, name)) {
+				var relation = relationships[name];
+				for (var relName in relation) {
+					var related = relation[relName];
+					models[name][relName](models[related]);
+					logger.log('verbose', 'Relation: ' + name + ' ' + relName + ' ' + related);
+				}
 			}
 		}
 	}

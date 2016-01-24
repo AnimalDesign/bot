@@ -55,7 +55,7 @@ class moduleLoader {
 		}
 
 		actions[action.moduleName + '.' + action.name] = action;
-	};
+	}
 
 	/**
 	 * Returns all registered actions
@@ -101,7 +101,7 @@ class moduleLoader {
 
 		task._job = schedule.scheduleJob(task.interval, task.callback);
 		tasks[task.moduleName + '.' + task.name] = task;
-	};
+	}
 
 	/**
 	 * Returns all registered tasks
@@ -127,7 +127,7 @@ class moduleLoader {
 		}
 
 		commands.push(command);
-	};
+	}
 
 	/**
 	 * Returns all registed commands

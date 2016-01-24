@@ -55,7 +55,9 @@ class animalBot {
 	_registerModules() {
 		var modules = moduleLoader.loadModules();
 		for (var moduleName in modules) {
-			db.loadModels('modules/' + moduleName + '/models');
+			if ({}.hasOwnProperty.call(modules, moduleName)) {
+				db.loadModels('modules/' + moduleName + '/models');
+			}
 		}
 
 		db.createRelations();

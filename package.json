@@ -22,7 +22,7 @@
     "mocha": "^2.3",
     "chai": "^3.4",
     "istanbul": "^0.4",
-    "coveralls": "^2.11"
+    "codeclimate-test-reporter": "^0.3"
   },
   "repository": {
     "type": "git",

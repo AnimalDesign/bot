@@ -32,9 +32,9 @@ class animalBot {
 		this._connectDb();
 		this._registerModules();
 
-		(function keepAlive() {
+		var keepAlive = function() {
 			setTimeout(keepAlive, 1000);
-		})();
+		}();
 	}
 
 	/**

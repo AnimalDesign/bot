@@ -57,6 +57,8 @@ class animalBot {
 		for (var moduleName in modules) {
 			db.loadModels('modules/' + moduleName + '/models');
 		}
+
+		db.createRelations();
 	}
 }
 

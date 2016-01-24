@@ -58,9 +58,11 @@ class db {
 			if ({}.hasOwnProperty.call(relationships, name)) {
 				var relation = relationships[name];
 				for (var relName in relation) {
-					var related = relation[relName];
-					models[name][relName](models[related]);
-					logger.log('verbose', 'Relation: ' + name + ' ' + relName + ' ' + related);
+					if ({}.hasOwnProperty.call(relation, relName)) {
+						var related = relation[relName];
+						models[name][relName](models[related]);
+						logger.log('verbose', 'Relation: ' + name + ' ' + relName + ' ' + related);
+					}
 				}
 			}
 		}

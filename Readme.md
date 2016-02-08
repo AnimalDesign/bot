@@ -5,6 +5,7 @@ This is the home of the ANIMAL bot. It shall be a (not so) silent companion, sup
 [![Test Coverage](https://codeclimate.com/github/AnimalDesign/bot/badges/coverage.svg?branch=master)](https://codeclimate.com/github/AnimalDesign/bot/coverage)
 [![Code Climate](https://codeclimate.com/github/AnimalDesign/bot/badges/gpa.svg?branch=master)](https://codeclimate.com/github/AnimalDesign/bot)
 [![Issue Count](https://codeclimate.com/github/AnimalDesign/bot/badges/issue_count.svg?branch=master)](https://codeclimate.com/github/AnimalDesign/bot)
+[![Dependencies](https://david-dm.org/AnimalDesign/bot.svg?branch=master)](https://david-dm.org/AnimalDesign/bot)
 
 ## Core functionality
 The core of the ANIMAL bot provides the following functionality:

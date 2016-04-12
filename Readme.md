@@ -1,6 +1,7 @@
 # ANIMAL bot
 This is the home of the ANIMAL bot. It shall be a (not so) silent companion, supporting our everyday work life at the office.
 
+[![Project Status: WIP - Initial development is in progress.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![Build Status](https://travis-ci.org/AnimalDesign/bot.svg?branch=master)](https://travis-ci.org/AnimalDesign/bot)
 [![Test Coverage](https://codeclimate.com/github/AnimalDesign/bot/badges/coverage.svg?branch=master)](https://codeclimate.com/github/AnimalDesign/bot/coverage)
 [![Code Climate](https://codeclimate.com/github/AnimalDesign/bot/badges/gpa.svg?branch=master)](https://codeclimate.com/github/AnimalDesign/bot)

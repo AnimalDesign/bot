@@ -1,9 +1,10 @@
 'use strict';
 
-var filesystem = require('fs'),
-	Sequelize = require('sequelize'),
-	logger = require('./logger'),
-	sequelize = null,
+import filesystem from 'fs';
+import Sequelize from 'sequelize';
+import logger from './logger';
+
+var sequelize = null,
 	models = {},
 	relationships = {};
 

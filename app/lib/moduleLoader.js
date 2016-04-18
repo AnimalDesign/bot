@@ -1,11 +1,11 @@
 'use strict';
 
-var filesystem = require('fs'),
-	util = require('util'),
-	schedule = require('node-schedule'),
-	logger = require('./logger'),
+import filesystem from 'fs';
+import util from 'util';
+import schedule from 'node-schedule';
+import logger from './logger';
 
-	modules = {},
+var modules = {},
 	actions = {},
 	tasks = {},
 	commands = [];

@@ -1,31 +1,38 @@
 {
-  "name": "animalbot",
-  "version": "0.1.0",
-  "description": "Home of the ANIMAL bot.",
-  "homepage": "http://bot.animal.at",
-  "main": "app/index.js",
-  "scripts": {
-    "preinstall": "node bin/installModuleDependencies",
-    "test": "./node_modules/mocha/bin/mocha ./app/tests/",
-    "test-coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./app/tests/"
-  },
-  "author": "ANIMAL",
-  "license": "MIT",
-  "dependencies": {
-    "commander": "^2.9",
-    "node-schedule": "^1.0",
-    "sequelize": "^3.16",
-    "sqlite3": "^3.1",
-    "winston": "^2.1"
-  },
-  "devDependencies": {
-    "mocha": "^2.3",
-    "chai": "^3.4",
-    "istanbul": "^0.4",
-    "codeclimate-test-reporter": "^0.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/AnimalDesign/bot"
-  }
+	"name": "animalbot",
+	"version": "0.1.0",
+	"description": "Home of the ANIMAL bot.",
+	"homepage": "http://bot.animal.at",
+	"main": "app/index.js",
+	"scripts": {
+		"preinstall": "node bin/installModuleDependencies",
+		"test": "./node_modules/mocha/bin/mocha ./app/tests/",
+		"test-coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./app/tests/",
+		"lint": "eslint app --ext .js",
+		"dev": "npm run lint && ./node_modules/.bin/babel-node app/index",
+		"build": "rm -fr built && npm run lint && ./node_modules/.bin/babel app -d build"
+	},
+	"author": "ANIMAL",
+	"license": "MIT",
+	"dependencies": {
+		"commander": "^2.9",
+		"node-schedule": "^1.0",
+		"sequelize": "^3.16",
+		"sqlite3": "^3.1",
+		"winston": "^2.1"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.7.5",
+		"babel-eslint": "^6.0.2",
+		"babel-preset-es2015": "^6.6.0",
+		"chai": "^3.4",
+		"codeclimate-test-reporter": "^0.3",
+		"eslint": "^2.8.0",
+		"istanbul": "^0.4",
+		"mocha": "^2.3"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AnimalDesign/bot"
+	}
 }

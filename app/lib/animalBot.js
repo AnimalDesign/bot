@@ -1,10 +1,10 @@
 'use strict';
 
-var join = require('path').join,
-	filesystem = require('fs'),
-	logger = require('./logger'),
-	db = require('./db'),
-	moduleLoader = require('./moduleLoader');
+import {join} from 'path';
+import filesystem from 'fs';
+import logger from './logger';
+import db from './db';
+import moduleLoader from './moduleLoader';
 
 /**
  * Main class of the ANIMAL bot.

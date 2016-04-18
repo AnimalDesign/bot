@@ -7,12 +7,12 @@ module.exports = exports = new(winston.Logger)({
 	transports: [
 		new(winston.transports.File)({
 			name: 'file-info',
-			filename: 'server/logs/info.log',
+			filename: 'app/logs/info.log',
 			level: process.env.NODE_ENV || 'development' === 'development' ? 'verbose' : 'info'
 		}),
 		new(winston.transports.File)({
 			name: 'file-error',
-			filename: 'server/logs/error.log',
+			filename: 'app/logs/error.log',
 			level: 'error'
 		}),
 		new winston.transports.Console({

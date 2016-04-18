@@ -16,7 +16,7 @@ class animalBot {
 
 		try {
 			defaults = JSON.parse(
-				filesystem.readFileSync(join(process.cwd(), 'server', 'config.json'))
+				filesystem.readFileSync(join(process.cwd(), 'app', 'config.json'))
 			);
 		} catch (err) {
 			console.log('Error loading config.json', err);

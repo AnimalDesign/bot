@@ -32,11 +32,11 @@ class db {
 	}
 
 	loadModels(path) {
-		if (!filesystem.existsSync('server/' + path)) {
+		if (!filesystem.existsSync('app/' + path)) {
 			return;
 		}
 
-		filesystem.readdirSync('server/' + path).forEach(function(name) {
+		filesystem.readdirSync('app/' + path).forEach(function(name) {
 			var modelName = name.replace(/\.js$/i, ''),
 				object = require('../' + path + '/' + modelName);
 

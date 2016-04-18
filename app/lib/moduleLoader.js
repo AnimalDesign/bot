@@ -20,7 +20,7 @@ class moduleLoader {
 	 * @returns {object}
 	 */
 	loadModules() {
-		var path = 'server/modules/',
+		var path = 'app/modules/',
 			self = this;
 
 		filesystem.readdirSync(path).forEach(function(moduleName) {

@@ -4,6 +4,6 @@ node_js:
 addons:
     code_climate:
         repo_token: f5fc29668abad537094ce0d6fd47e771995b452cf3bbe42799610819a754de12
-before_script: "cp ./server/config.json.dist ./server/config.json"
+before_script: "cp ./app/config.json.dist ./app/config.json"
 script: "npm run-script test-coverage"
 after_script: "codeclimate-test-reporter < ./coverage/lcov.info"

@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "description": "Home of the ANIMAL bot.",
   "homepage": "http://bot.animal.at",
-  "main": "server/index.js",
+  "main": "app/index.js",
   "scripts": {
     "preinstall": "node bin/installModuleDependencies",
-    "test": "./node_modules/mocha/bin/mocha ./server/tests/",
-    "test-coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./server/tests/"
+    "test": "./node_modules/mocha/bin/mocha ./app/tests/",
+    "test-coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./app/tests/"
   },
   "author": "ANIMAL",
   "license": "MIT",

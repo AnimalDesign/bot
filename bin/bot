@@ -6,8 +6,8 @@ global.isCommandline = true;
 
 var util = require('util'),
 	commander = require('commander'),
-	db = require('../server/lib/db'),
-	moduleLoader = require('../server/lib/moduleLoader'),
+	db = require('../app/lib/db'),
+	moduleLoader = require('../app/lib/moduleLoader'),
 	modules = moduleLoader.loadModules(),
 	commands = moduleLoader.getCommands();
 
@@ -42,7 +42,7 @@ process.stdout.write('\n' +
 
 db.connect({
 	'dialect': 'sqlite',
-	'storage': 'server/data/animalbot.db'
+	'storage': 'app/data/animalbot.db'
 }).then(function() {
 	for (var moduleName in modules) {
 		db.loadModels('modules/' + moduleName + '/models');

@@ -15,7 +15,7 @@ The core of the ANIMAL bot provides the following functionality:
 The database layer is based on the [Sequelize](http://docs.sequelizejs.com/en/latest/) ORM and therefor supports PostgreSQL, MySQL, MariaDB, SQLite (currently tested and used) and MSSQL databases.
 
 ### Module loader
-With the module loader, we try to maintain greatest possible flexibility. Developers can independently teach the bot new tricks without blocking others. Modules overseen by the [ANIMAL team](http://animal.at) can be found [here](https://github.com/AnimalBot). To install a module, it usually needs to be copied (or cloned) into  `server/modules/<modulename>`. Have a look at the [Example module repository](https://github.com/AnimalBot/example) to learn more on how to extend the bot.
+With the module loader, we try to maintain greatest possible flexibility. Developers can independently teach the bot new tricks without blocking others. Modules overseen by the [ANIMAL team](http://animal.at) can be found [here](https://github.com/AnimalBot). To install a module, it usually needs to be copied (or cloned) into  `app/modules/<modulename>`. Have a look at the [Example module repository](https://github.com/AnimalBot/example) to learn more on how to extend the bot.
 
 > **Note:** A module can be deactivated simply by renaming its `module.js` file.
 
@@ -32,8 +32,8 @@ To make some functionality easy accessable, the bos also has a commandline inter
 
 ### Logger
 
-The logger component uses [winston](https://github.com/winstonjs/winston) to log infos into `server/logs/info.log` and 
-errors into `server/logs/error.log`.
+The logger component uses [winston](https://github.com/winstonjs/winston) to log infos into `app/logs/info.log` and 
+errors into `app/logs/error.log`.
 
 ## Dependencies
 - [winston](https://github.com/winstonjs/winston)

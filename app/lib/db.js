@@ -2,7 +2,7 @@
 
 import filesystem from 'fs';
 import Sequelize from 'sequelize';
-import logger from './logger';
+import {logger} from '.';
 
 var sequelize = null,
 	models = {},
@@ -37,16 +37,18 @@ class db {
 			return;
 		}
 
-		filesystem.readdirSync('app/' + path).forEach(function(name) {
-			var modelName = name.replace(/\.js$/i, ''),
-				object = require('../' + path + '/' + modelName);
+		filesystem.readdirSync('app/' + path)
+			.filter((file) => file.substr(-3) === '.js')
+			.forEach(function(name) {
+				var modelName = name.replace(/\.js$/i, ''),
+					object = require('../' + path + '/' + modelName);
 
-			models[modelName] = sequelize.define(modelName, object.model, object.options || {});
+				models[modelName] = sequelize.define(modelName, object.model, object.options || {});
 
-			if ('relations' in object) {
-				relationships[modelName] = object.relations;
-			}
-		});
+				if ('relations' in object) {
+					relationships[modelName] = object.relations;
+				}
+			});
 
 		logger.log('verbose', 'Loaded models', models);
 	}

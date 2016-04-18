@@ -1,6 +1,6 @@
 'use strict';
 
-import AnimalBot from './lib/animalBot';
-var animalbot = new AnimalBot();
+import {animalBot} from './lib';
+var Animalbot = new animalBot();
 
-animalbot.run();
+Animalbot.run();

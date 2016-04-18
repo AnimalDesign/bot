@@ -1,10 +1,8 @@
 'use strict';
 
-var filesystem = require('fs'),
-	path = require('path'),
-	logger = require('../logger'),
-	db = require('../db'),
-	moduleLoader = require('../moduleLoader');
+import filesystem from 'fs';
+import path from 'path';
+import {db, logger, moduleLoader} from '..';
 
 /**
  * Base class for modules

@@ -1,10 +1,9 @@
 'use strict';
 
-import {join} from 'path';
+import { version, description, homepage } from '../../package.json';
+import { join } from 'path';
 import filesystem from 'fs';
-import logger from './logger';
-import db from './db';
-import moduleLoader from './moduleLoader';
+import {db, logger, moduleLoader} from '.';
 
 /**
  * Main class of the ANIMAL bot.
@@ -29,12 +28,24 @@ class animalBot {
 	 * Run the bot
 	 */
 	run() {
+		this._welcome();
 		this._connectDb();
 		this._registerModules();
 
-		var keepAlive = function() {
-			setTimeout(keepAlive, 1000);
-		}();
+		var keepAlive = () => setTimeout(keepAlive, 1000);
+	}
+
+	_welcome() {
+		process.stdout.write('\n' +
+			'  ╔═╗╔╗╔╦╔╦╗╔═╗╦    ┌┐ ┌─┐┌┬┐\n' +
+			'  ╠═╣║║║║║║║╠═╣║    ├┴┐│ │ │ \n' +
+			'  ╩ ╩╝╚╝╩╩ ╩╩ ╩╩═╝  └─┘└─┘ ┴ v' + version + '\n'
+		);
+
+		process.stdout.write(
+			'  ' + description + '\n' +
+			'  ' + homepage + '\n\n'
+		);
 	}
 
 	/**
@@ -46,13 +57,15 @@ class animalBot {
 			'storage': join(process.cwd(), this.settings.dbPath)
 		});
 
-		// db.loadModels('models');
+		db.loadModels('models');
 	}
 
 	/**
 	 * Autoloads modules
 	 */
 	_registerModules() {
+		process.stdout.write('  - Loading Modules..');
+
 		var modules = moduleLoader.loadModules();
 		for (var moduleName in modules) {
 			if ({}.hasOwnProperty.call(modules, moduleName)) {
@@ -61,6 +74,7 @@ class animalBot {
 		}
 
 		db.createRelations();
+		process.stdout.write('  done.\n');
 	}
 }
 

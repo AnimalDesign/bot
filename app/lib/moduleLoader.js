@@ -3,7 +3,7 @@
 import filesystem from 'fs';
 import util from 'util';
 import schedule from 'node-schedule';
-import logger from './logger';
+import {logger} from '.';
 
 var modules = {},
 	actions = {},

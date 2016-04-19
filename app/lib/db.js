@@ -87,6 +87,14 @@ class db {
 	}
 
 	/**
+	 * Returns database models
+	 * @returns {array}
+	 */
+	getModels() {
+		return models;
+	}
+
+	/**
 	 * Returns database model
 	 * @returns {object}
 	 */

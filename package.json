@@ -5,7 +5,7 @@
 	"homepage": "http://bot.animal.at",
 	"main": "app/index.js",
 	"scripts": {
-		"preinstall": "node bin/installModuleDependencies",
+		"preinstall": "node scripts/installModuleDependencies",
 		"test": "./node_modules/mocha/bin/mocha ./app/tests/",
 		"test-coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./app/tests/",
 		"lint": "eslint app --ext .js",

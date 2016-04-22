@@ -3,7 +3,7 @@
 import { version, description, homepage } from '../../package.json';
 import { join } from 'path';
 import filesystem from 'fs';
-import {db, logger, moduleLoader} from '.';
+import { db, logger, moduleLoader } from '.';
 
 /**
  * Main class of the ANIMAL bot.
@@ -67,14 +67,9 @@ class animalBot {
 		process.stdout.write('  - Loading Modules..');
 
 		var modules = moduleLoader.loadModules();
-		for (var moduleName in modules) {
-			if ({}.hasOwnProperty.call(modules, moduleName)) {
-				db.loadModels('modules/' + moduleName + '/models');
-			}
-		}
 
 		db.createRelations();
-		process.stdout.write('  done.\n');
+		process.stdout.write('  loaded ' + Object.keys(modules).length + ' modules.\n');
 	}
 }
 

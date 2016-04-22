@@ -101,10 +101,6 @@ class db {
 	getModel(name) {
 		return models[name];
 	}
-
-	seq() {
-		return sequelize;
-	}
 }
 
 module.exports = exports = new db();

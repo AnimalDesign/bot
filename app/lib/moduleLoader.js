@@ -3,7 +3,7 @@
 import filesystem from 'fs';
 import util from 'util';
 import schedule from 'node-schedule';
-import {logger} from '.';
+import {db, logger} from '.';
 
 var modules = {},
 	actions = {},
@@ -28,9 +28,12 @@ class moduleLoader {
 				return;
 			}
 
-			var moduleClass = require('../modules/' + moduleName + '/module');
-			modules[moduleName] = new moduleClass();
+			db.loadModels('modules/' + moduleName + '/models');
+
+			modules[moduleName] = require('../modules/' + moduleName + '/module');
 			modules[moduleName].init();
+			// modules[moduleName] = new moduleClass();
+			// modules[moduleName].init();
 		});
 
 		logger.info('Loaded modules %j', modules);
@@ -53,6 +56,9 @@ class moduleLoader {
 		if (!util.isFunction(action.matcher)) {
 			action.matcher = modules[action.moduleName][action.matcher];
 		}
+
+		action.callback.bind(modules[action.moduleName]);
+		action.matcher.bind(modules[action.moduleName]);
 
 		actions[action.moduleName + '.' + action.name] = action;
 	}
@@ -99,7 +105,7 @@ class moduleLoader {
 			task.callback = modules[task.moduleName][task.callback];
 		}
 
-		task._job = schedule.scheduleJob(task.interval, task.callback);
+		task._job = schedule.scheduleJob(task.interval, task.callback.bind(modules[task.moduleName]));
 		tasks[task.moduleName + '.' + task.name] = task;
 	}
 

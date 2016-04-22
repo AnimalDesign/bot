@@ -69,6 +69,7 @@ class animalBot {
 		var modules = moduleLoader.loadModules();
 
 		db.createRelations();
+		db.syncDatabase();
 		process.stdout.write('  loaded ' + Object.keys(modules).length + ' modules.\n');
 	}
 }

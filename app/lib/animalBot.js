@@ -46,6 +46,10 @@ class animalBot {
 			'  ' + description + '\n' +
 			'  ' + homepage + '\n\n'
 		);
+
+		if (process.env.NODE_ENV === 'development') {
+			process.stdout.write('  [development mode]\n');
+		}
 	}
 
 	/**

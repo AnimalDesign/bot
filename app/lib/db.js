@@ -2,7 +2,7 @@
 
 import filesystem from 'fs';
 import Sequelize from 'sequelize';
-import {logger} from '.';
+import { logger } from '.';
 
 var sequelize = null,
 	models = {},
@@ -15,6 +15,10 @@ var sequelize = null,
 class db {
 	connect(config) {
 		config.logging = logger.info;
+		config.define = {
+			underscored: false,
+			freezeTableName: false
+		};
 
 		sequelize = new Sequelize(
 			config.database || '',

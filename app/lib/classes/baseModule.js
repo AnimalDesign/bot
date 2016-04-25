@@ -2,7 +2,7 @@
 
 import filesystem from 'fs';
 import path from 'path';
-import {db, logger, moduleLoader} from '..';
+import { db, logger, moduleLoader } from '..';
 
 /**
  * Base class for modules
@@ -19,9 +19,11 @@ class baseModule {
 
 		try {
 			this.config = JSON.parse(
-				filesystem.readFileSync(path.resolve(process.cwd(), 'app/lib/modules', this.moduleName, 'config.json'))
+				filesystem.readFileSync(path.resolve(process.cwd(), 'app/modules', this.moduleName, 'config.json'))
 			);
-		} catch (err) {}
+		} catch (err) {
+			logger.log('verbose', err);
+		}
 	}
 
 	init() {}

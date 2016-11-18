@@ -1,6 +1,4 @@
-'use strict';
+import { bot } from './lib';
+const Bot = new bot();
 
-import {animalBot} from './lib';
-var Animalbot = new animalBot();
-
-Animalbot.run();
+Bot.run();

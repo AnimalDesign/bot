@@ -1,12 +1,12 @@
 'use strict';
 
-import filesystem from 'fs';
+import { existsSync, readdirSync } from 'fs';
 import Sequelize from 'sequelize';
 import { logger } from '.';
 
-var sequelize = null,
-	models = {},
-	relationships = {};
+let sequelize = null;
+const models = {};
+const relationships = {};
 
 /**
  * Singleton database layer
@@ -37,15 +37,15 @@ class db {
 	}
 
 	loadModels(path) {
-		if (!filesystem.existsSync('app/' + path)) {
+		if (!existsSync('app/' + path)) {
 			return;
 		}
 
-		filesystem.readdirSync('app/' + path)
+		readdirSync('app/' + path)
 			.filter((file) => file.substr(-3) === '.js')
 			.forEach(function(name) {
-				var modelName = name.replace(/\.js$/i, ''),
-					object = require('../' + path + '/' + modelName);
+				const modelName = name.replace(/\.js$/i, '');
+				const object = require('../' + path + '/' + modelName);
 
 				models[modelName] = sequelize.define(modelName, object.model, object.options || {});
 
@@ -61,12 +61,12 @@ class db {
 	 * Creates relations between database models
 	 */
 	createRelations() {
-		for (var name in relationships) {
+		for (const name in relationships) {
 			if ({}.hasOwnProperty.call(relationships, name)) {
-				var relation = relationships[name];
-				for (var relName in relation) {
+				const relation = relationships[name];
+				for (const relName in relation) {
 					if ({}.hasOwnProperty.call(relation, relName)) {
-						var related = relation[relName];
+						const related = relation[relName];
 						models[name][relName](models[related]);
 						logger.log('verbose', 'Relation: ' + name + ' ' + relName + ' ' + related);
 					}
@@ -78,9 +78,7 @@ class db {
 	/**
 	 * Sync datbase schema
 	 */
-	syncDatabase(force) {
-		force = typeof force !== 'undefined' ? force : false;
-
+	syncDatabase(force = false) {
 		sequelize
 			.sync(force)
 			.then(function() {

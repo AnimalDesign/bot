@@ -1,7 +1,5 @@
-'use strict';
-
-import filesystem from 'fs';
-import path from 'path';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 import { db, logger, moduleLoader } from '..';
 
 /**
@@ -19,7 +17,7 @@ class baseModule {
 
 		try {
 			this.config = JSON.parse(
-				filesystem.readFileSync(path.resolve(process.cwd(), 'app/modules', this.moduleName, 'config.json'))
+				readFileSync(resolve(process.cwd(), 'app/modules', this.moduleName, 'config.json'))
 			);
 		} catch (err) {
 			logger.log('verbose', err);

@@ -1,14 +1,12 @@
-'use strict';
-
-import filesystem from 'fs';
+import { readdirSync, existsSync } from 'fs';
 import util from 'util';
 import schedule from 'node-schedule';
 import {db, logger} from '.';
 
-var modules = {},
-	actions = {},
-	tasks = {},
-	commands = [];
+const modules = {};
+const actions = {};
+const tasks = {};
+const commands = [];
 
 /**
  * Autoloader for ANIMAL bot modules
@@ -20,11 +18,10 @@ class moduleLoader {
 	 * @returns {object}
 	 */
 	loadModules() {
-		var path = 'app/modules/',
-			self = this;
+		const path = 'app/modules/';
 
-		filesystem.readdirSync(path).forEach(function(moduleName) {
-			if (!filesystem.existsSync(path + moduleName + '/module.js')) {
+		readdirSync(path).forEach(function(moduleName) {
+			if (!existsSync(path + moduleName + '/module.js')) {
 				return;
 			}
 
@@ -77,9 +74,9 @@ class moduleLoader {
 	 * @returns {array}
 	 */
 	matchActions(exp) {
-		var callbacks = [];
+		const callbacks = [];
 
-		for (var actionsName in actions) {
+		for (const actionsName in actions) {
 			if (actions[actionsName].matcher(exp)) {
 				callbacks.push(actions[actionsName].callback(exp));
 			}

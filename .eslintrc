@@ -6,8 +6,17 @@
         "mocha": true
     },
     "rules": {
-        "indent": [2, "tab"],
+        "indent": [2, "tab", { "SwitchCase": 1 }],
+        "max-len": ["error", 120, { "ignoreComments": true, "ignoreUrls": true, "ignoreTrailingComments": true }],
+        "comma-spacing": [1, {"before": false, "after": true}],
+        "comma-style": [1, "last"],
+        "consistent-this": [1, "self"],
         "quotes": [2, "single", "avoid-escape"],
-        "no-console": 0
+        "no-console": 0,
+        "no-mixed-spaces-and-tabs": 2,
+        "no-trailing-spaces": 2,
+        "no-unused-vars": 1,
+        "semi": [2, "always"],
+        "eol-last": 1
     }
 }

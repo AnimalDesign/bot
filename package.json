@@ -6,31 +6,33 @@
 	"main": "app/index.js",
 	"scripts": {
 		"preinstall": "node scripts/installModuleDependencies",
+		"clean": "rm -fr built",
 		"test": "./node_modules/mocha/bin/mocha ./app/tests/",
 		"test-coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./app/tests/",
 		"lint": "eslint app --ext .js",
 		"dev": "npm run lint && NODE_ENV=development ./node_modules/.bin/babel-node app/index",
-		"build": "rm -fr built && npm run lint && ./node_modules/.bin/babel app -d build"
+		"prod": "node ./build/index",
+		"build": "npm run clean && npm run lint && ./node_modules/.bin/babel app -d build"
 	},
 	"author": "ANIMAL",
 	"license": "MIT",
 	"dependencies": {
 		"commander": "^2.9",
-		"moment": "^2.13.0",
-		"node-schedule": "^1.0",
-		"sequelize": "^3.16",
+		"moment": "^2.15.1",
+		"node-schedule": "^1.2",
+		"sequelize": "^3.24",
 		"sqlite3": "^3.1",
-		"winston": "^2.1"
+		"winston": "^2.2"
 	},
 	"devDependencies": {
-		"babel-cli": "^6.7.5",
-		"babel-eslint": "^6.0.2",
-		"babel-preset-es2015": "^6.6.0",
-		"chai": "^3.4",
-		"codeclimate-test-reporter": "^0.3",
-		"eslint": "^2.8.0",
+		"babel-cli": "^6.16.0",
+		"babel-eslint": "^7.0.0",
+		"babel-preset-es2015": "^6.16.0",
+		"chai": "^3.5",
+		"codeclimate-test-reporter": "^0.4",
+		"eslint": "^3.8.1",
 		"istanbul": "^0.4",
-		"mocha": "^2.3"
+		"mocha": "^3.1"
 	},
 	"repository": {
 		"type": "git",

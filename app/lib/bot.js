@@ -46,7 +46,7 @@ class bot {
 			'  ' + homepage + '\n\n'
 		);
 
-		if (typeof(process.env.NODE_ENV) !== 'undefined') {
+		if (typeof process.env.NODE_ENV !== 'undefined') {
 			process.stdout.write('  [' + process.env.NODE_ENV + ' mode]\n');
 		}
 	}

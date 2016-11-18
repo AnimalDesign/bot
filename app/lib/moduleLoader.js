@@ -1,24 +1,27 @@
 import { readdirSync, existsSync } from 'fs';
-import util from 'util';
+import { isFunction } from 'util';
 import schedule from 'node-schedule';
-import {db, logger} from '.';
-
-const modules = {};
-const actions = {};
-const tasks = {};
-const commands = [];
+import { db, logger } from '.';
 
 /**
  * Autoloader for ANIMAL bot modules
  * @class moduleLoader
  */
 class moduleLoader {
+	constructor() {
+		this.modules = {};
+		this.actions = {};
+		this.tasks = {};
+		this.commands = [];
+	}
+
 	/**
 	 * Load all modules
 	 * @returns {object}
 	 */
 	loadModules() {
 		const path = 'app/modules/';
+		const self = this;
 
 		readdirSync(path).forEach(function(moduleName) {
 			if (!existsSync(path + moduleName + '/module.js')) {
@@ -27,14 +30,14 @@ class moduleLoader {
 
 			db.loadModels('modules/' + moduleName + '/models');
 
-			modules[moduleName] = require('../modules/' + moduleName + '/module');
-			modules[moduleName].init();
+			self.modules[moduleName] = require('../modules/' + moduleName + '/module');
+			self.modules[moduleName].init();
 			// modules[moduleName] = new moduleClass();
 			// modules[moduleName].init();
 		});
 
-		logger.info('Loaded modules %j', modules);
-		return modules;
+		logger.info('Loaded modules %j', this.modules);
+		return this.modules;
 	}
 
 	/**
@@ -46,18 +49,18 @@ class moduleLoader {
 	 * @param {(string|function)} action.callback
 	 */
 	registerAction(action) {
-		if (!util.isFunction(action.callback)) {
-			action.callback = modules[action.moduleName][action.callback];
+		if (!isFunction(action.callback)) {
+			action.callback = this.modules[action.moduleName][action.callback];
 		}
 
-		if (!util.isFunction(action.matcher)) {
-			action.matcher = modules[action.moduleName][action.matcher];
+		if (!isFunction(action.matcher)) {
+			action.matcher = this.modules[action.moduleName][action.matcher];
 		}
 
-		action.callback.bind(modules[action.moduleName]);
-		action.matcher.bind(modules[action.moduleName]);
+		action.callback.bind(this.modules[action.moduleName]);
+		action.matcher.bind(this.modules[action.moduleName]);
 
-		actions[action.moduleName + '.' + action.name] = action;
+		this.actions[action.moduleName + '.' + action.name] = action;
 	}
 
 	/**
@@ -65,7 +68,7 @@ class moduleLoader {
 	 * @returns {object}
 	 */
 	getActions() {
-		return actions;
+		return this.actions;
 	}
 
 	/**
@@ -98,12 +101,12 @@ class moduleLoader {
 			return;
 		}
 
-		if (!util.isFunction(task.callback)) {
-			task.callback = modules[task.moduleName][task.callback];
+		if (!isFunction(task.callback)) {
+			task.callback = this.modules[task.moduleName][task.callback];
 		}
 
-		task._job = schedule.scheduleJob(task.interval, task.callback.bind(modules[task.moduleName]));
-		tasks[task.moduleName + '.' + task.name] = task;
+		task._job = schedule.scheduleJob(task.interval, task.callback.bind(this.modules[task.moduleName]));
+		this.tasks[task.moduleName + '.' + task.name] = task;
 	}
 
 	/**
@@ -111,7 +114,7 @@ class moduleLoader {
 	 * @returns {object}
 	 */
 	getTasks() {
-		return tasks;
+		return this.tasks;
 	}
 
 	/**
@@ -129,7 +132,7 @@ class moduleLoader {
 			return;
 		}
 
-		commands.push(command);
+		this.commands.push(command);
 	}
 
 	/**
@@ -137,7 +140,7 @@ class moduleLoader {
 	 * @returns {array}
 	 */
 	getCommands() {
-		return commands;
+		return this.commands;
 	}
 }
 
